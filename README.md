@@ -66,4 +66,4 @@ Selenium Webdriver
 
 
 # Reports:
-Cucumber reports will generate in Cucumber-reports under target folder.
+Cucumber reports will generate in cucumber.html under target folder.
