@@ -15,9 +15,10 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 @CucumberOptions(
                 plugin = {"pretty","html:target/cucumber.html"},
                 glue = {"stepDefinitions","hooks", "types"},
-                features = {"src/test/java/Features/checkout.feature", "src/test/java/Features/login.feature", "src/test/java/Features/dropdown.feature", "src/test/java/Features/addToCart.feature"},
+                features = {"src/test/java/Features/"},
                // tags = "@Demo",
                 dryRun = false,
+
                 snippets = CAMELCASE
 )
 
