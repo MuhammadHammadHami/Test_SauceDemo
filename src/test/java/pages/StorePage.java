@@ -11,6 +11,7 @@ import java.util.Locale;
 
 public class StorePage extends BasePage {
     @FindBy(xpath ="//a[@class=\"shopping_cart_link\"]") private WebElement cartIconBtn;
+    String productName;
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -28,7 +29,6 @@ public class StorePage extends BasePage {
     }
 
     public void navigateToCart(){
-//        By cartIconBtn = By.xpath("//a[@class=\"shopping_cart_link\"]");
 
         wait.until(ExpectedConditions.elementToBeClickable(cartIconBtn)).click();
         System.out.println("=============================== Navigated to cart ===============================");

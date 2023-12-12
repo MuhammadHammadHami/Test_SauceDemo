@@ -8,9 +8,10 @@ public class DriverFactory {
     private static WebDriver driver;
 
     public static WebDriver initializeDriver(){
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        options.addArguments("headless");
+        //options.addArguments("headless");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         return driver;

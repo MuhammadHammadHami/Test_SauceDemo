@@ -8,8 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import pages.LoginPage;
-import pages.StorePage;
+import pages.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,38 +19,47 @@ public class steps {
     @Given("Navigate to Sauce Demo site")
     public void open_browser() {
         driver = DriverFactory.getDriver();
-//        StorePage storepage = new StorePage(driver);
-        //      storepage.load("https://www.saucedemo.com/");
         new StorePage(driver).load("https://www.saucedemo.com/"); // created object for StorePage.java and call driver to load website
 
     }
 
     @When("User is able to Login with credentials")
-    public void navigate_to_sauce_demo_site() {
+    public void navigate_to_sauce_demo_site(String username, String password) {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterUsername();
-        loginPage.enterPassword();
+        loginPage.enterUsername("username");
+        loginPage.enterPassword("password");
         loginPage.clickOnLoginBtn();
 
     }
 
+//    @When("User is able to enter {string} in username field for checkout")
+//    public void userIsAbleToEnterInUsernameField(String username) {
+//        LoginPage loginPage = new LoginPage(driver);
+//        loginPage.enterUsername(username);
+//
+//    }
+
+    //    @When("User is able to enter {string} in password field for checkout")
+//    public void userIsAbleToEnterInPasswordFieldForCheckout(String password) {
+//        LoginPage loginPage = new LoginPage(driver);
+//        loginPage.enterPassword(password);
+//        loginPage.clickOnLoginBtn();
+//
+//    }
     @Then("User is able to see Logo on home page")
     public void Verify_that_Logo_is_displayed() {
-        if (driver.findElement(By.xpath("//*[@class=\"inventory_list\"]")).isDisplayed()) {
-            System.out.println("\nLogin success\n");
-        } else if (driver.findElement(By.xpath("//h3[@data-test=\"error\"]")).isDisplayed()) {
-            System.out.println("\nUnable to login\n");
+        InventoryPage homePage = new InventoryPage(driver);
 
-        } else {
-            System.out.println("\nSomething wnet wrong\n");
-        }
-
-//        boolean logoStatus = driver.findElement(By.xpath("//*[@class=\"inventory_list\"]")).isDisplayed();
-//        WebElement errorStatus = driver.findElement(By.xpath("//h3[@data-test=\"error\"]"));
-//        Assert.assertEquals(logoStatus,true);
-//        if (errorStatus.isDisplayed()){
-//            System.out.println("Login Failed");
-//            errorStatus.getText();
+        homePage.homeScreen();
+//
+//        if (driver.findElement(By.xpath("//*[@class=\"inventory_list\"]")).isDisplayed()) {
+//            System.out.println("\nLogin success\n");
+//        } else if (driver.findElement(By.xpath("//h3[@data-test=\"error\"]")).isDisplayed()) {
+//            System.out.println("\nUnable to login\n");
+//
+//
+//        } else {
+//            System.out.println("\nSomething went wrong\n");
 //        }
 
     }
@@ -63,14 +71,19 @@ public class steps {
 
     @Then("User is able to change item sorting dropdown using SendKeys")
     public void userIsAbleToChangeItemSortingUsingSendkeys() {
-        WebElement dropdown;
-        WebElement activeOption;
+        InventoryPage homePage = new InventoryPage(driver);
 
-        dropdown = driver.findElement(By.xpath("//*[@class=\"product_sort_container\"]"));
-        dropdown.sendKeys("Price (low to high)");
-        activeOption = driver.findElement(By.xpath("//*[@class=\"active_option\"]"));
+        homePage.homeScreen();
+        homePage.dropdownSelection();
+//        Assert.assertEquals("Price (low to high)", "123Price (low to high)");
+       // WebElement dropdown;
+//        WebElement activeOption;
 
-        Assert.assertEquals("Price (low to high)", "Price (low to high)");
+      //  dropdown = driver.findElement(By.xpath("//*[@class=\"product_sort_container\"]"));
+       // dropdown.sendKeys("Price (low to high)");
+  //      activeOption = driver.findElement(By.xpath("//*[@class=\"active_option\"]"));
+
+    //    Assert.assertEquals("Price (low to high)", "Price (low to high)");
     }
 
 
@@ -83,16 +96,16 @@ public class steps {
     }
 
     @When("User is able to enter {string} in username field")
-    public void user_is_able_to_enter_in_username_field(String username) {
-        driver.findElement(By.xpath("//*[@id=\"user-name\"]")).sendKeys(username);
-
+    public void userIsAbleToEnterInUsernameField(String username) {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterUsername(username);
     }
 
     @When("User is able to enter {string} in password field")
-    public void user_is_able_to_enter_in_password_field(String password) {
-        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(password);
-        WebElement clickLogin = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
-        clickLogin.click();
+    public void userIsAbleToEnterInPasswordFieldForCheckout(String password) {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterPassword(password);
+        loginPage.clickOnLoginBtn();
     }
 
     @When("I add {product} to cart")
@@ -111,16 +124,7 @@ public class steps {
     public void verify_that_user_is_able_to_add_to_cart(String productName) {
 
         new StorePage(driver).addToCart(productName);
-
-
-//        productName = productName.toLowerCase(Locale.ROOT);
-//        productName = productName.replace(' ', '-');
-//        By addToCartBtn = By.xpath("//button[@data-test=\"add-to-cart-" + productName + "\"]");
-//        driver.findElement(addToCartBtn).isDisplayed();
-//        driver.findElement(addToCartBtn).click();
-
         new StorePage(driver).navigateToCart();
-
     }
 
     @And("User is able to see {string} in the cart")
@@ -132,20 +136,22 @@ public class steps {
         System.out.println("=============================== Actual Product name: " + actualName + " =====================");
     }
 
-//    @Then("User is able to navigate to checkout page")
-//    public void userIsAbleToNavigateToCheckoutPage() {
-//        By checkoutBtn = By.xpath("//button[@id=\"checkout\"]");
-//        By checkoutForm = By.xpath("//div[@class=\"checkout_info\"]");
-//
-//        driver.findElement(checkoutBtn).click();
-//        Boolean formDisplayed = driver.findElement(checkoutForm).isDisplayed();
-//        Assert.assertTrue(formDisplayed);
-//    }
+    @Then("User is able to navigate to checkout page")
+    public void user_is_able_to_navigate_to_checkout_page() {
+        CartPage cartPage = new CartPage(driver);
+        cartPage.navigateToCheckout();
+    }
 
 
+    @Then("User is able to fill checkout information")
+    public void userIsAbleToFillCheckoutInformation(List<Map<String, String>> billingDetail) {
+        CheckoutPage checkoutpage = new CheckoutPage(driver);
+        checkoutpage.enterFirstName(billingDetail.get(0).get("firstname"));
+        checkoutpage.enterLastName(billingDetail.get(0).get("lastname"));
+        checkoutpage.enterZipCode(billingDetail.get(0).get("zipCode"));
+        checkoutpage.clickContinueBtn();
 
-
-
+    }
 
 
 }
