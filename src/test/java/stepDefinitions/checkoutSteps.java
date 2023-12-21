@@ -1,23 +1,19 @@
 package stepDefinitions;
 
-import Factory.DriverFactory;
+import Factory.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import pages.*;
-
-import java.util.List;
-import java.util.Map;
 
 public class checkoutSteps {
     WebDriver driver;
+
     @Given("Navigate to Sauce Demo site for checkout")
     public void open_browser() {
-        driver = DriverFactory.getDriver();
+        driver = Driver.getDriver();
         new StorePage(driver).load("https://www.saucedemo.com/"); // created object for StorePage.java and call driver to load website
 
     }
@@ -55,6 +51,7 @@ public class checkoutSteps {
         CartPage cartPage = new CartPage(driver);
         cartPage.itemInCart(productName);
     }
+
     @Then("User is able to navigate to checkout page for checkout")
     public void userIsAbleToNavigateToCheckoutPage() {
         CartPage cartPage = new CartPage(driver);

@@ -1,11 +1,13 @@
 package stepDefinitions;
 
-import Factory.DriverFactory;
-import io.cucumber.java.en.*;
+import Factory.Driver;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import objects.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pages.*;
@@ -18,7 +20,7 @@ public class steps {
 
     @Given("Navigate to Sauce Demo site")
     public void open_browser() {
-        driver = DriverFactory.getDriver();
+        driver = Driver.getDriver();
         new StorePage(driver).load("https://www.saucedemo.com/"); // created object for StorePage.java and call driver to load website
 
     }
@@ -76,14 +78,14 @@ public class steps {
         homePage.homeScreen();
         homePage.dropdownSelection();
 //        Assert.assertEquals("Price (low to high)", "123Price (low to high)");
-       // WebElement dropdown;
+        // WebElement dropdown;
 //        WebElement activeOption;
 
-      //  dropdown = driver.findElement(By.xpath("//*[@class=\"product_sort_container\"]"));
-       // dropdown.sendKeys("Price (low to high)");
-  //      activeOption = driver.findElement(By.xpath("//*[@class=\"active_option\"]"));
+        //  dropdown = driver.findElement(By.xpath("//*[@class=\"product_sort_container\"]"));
+        // dropdown.sendKeys("Price (low to high)");
+        //      activeOption = driver.findElement(By.xpath("//*[@class=\"active_option\"]"));
 
-    //    Assert.assertEquals("Price (low to high)", "Price (low to high)");
+        //    Assert.assertEquals("Price (low to high)", "Price (low to high)");
     }
 
 

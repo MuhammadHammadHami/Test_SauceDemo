@@ -4,10 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class DriverFactory {
+public class Driver {
     private static WebDriver driver;
 
-    public static WebDriver initializeDriver(){
+    public static WebDriver initializeDriver() {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -17,7 +17,7 @@ public class DriverFactory {
         return driver;
     }
 
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver() {
         return driver;
     }
 }
